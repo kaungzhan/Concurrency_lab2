@@ -1,0 +1,29 @@
+goos: darwin
+goarch: arm64
+pkg: uk.ac.bris.cs/concurrency1/filter
+BenchmarkFilter/1_workers-8         	       1	 273722625 ns/op
+BenchmarkFilter/1_workers-8         	       1	 274551583 ns/op
+BenchmarkFilter/1_workers-8         	       1	 276828083 ns/op
+BenchmarkFilter/1_workers-8         	       1	 275497459 ns/op
+BenchmarkFilter/1_workers-8         	       1	 275271500 ns/op
+BenchmarkFilter/2_workers-8         	       1	 273522875 ns/op
+BenchmarkFilter/2_workers-8         	       1	 273950125 ns/op
+BenchmarkFilter/2_workers-8         	       1	 273783125 ns/op
+BenchmarkFilter/2_workers-8         	       1	 273756750 ns/op
+BenchmarkFilter/2_workers-8         	       1	 273487167 ns/op
+BenchmarkFilter/4_workers-8         	       1	 270668458 ns/op
+BenchmarkFilter/4_workers-8         	       1	 270036791 ns/op
+BenchmarkFilter/4_workers-8         	       1	 270288375 ns/op
+BenchmarkFilter/4_workers-8         	       1	 270001417 ns/op
+BenchmarkFilter/4_workers-8         	       1	 271646583 ns/op
+BenchmarkFilter/8_workers-8         	       1	 262313042 ns/op
+BenchmarkFilter/8_workers-8         	       1	 263087042 ns/op
+BenchmarkFilter/8_workers-8         	       1	 262873667 ns/op
+BenchmarkFilter/8_workers-8         	       1	 261377209 ns/op
+BenchmarkFilter/8_workers-8         	       1	 259869208 ns/op
+BenchmarkFilter/16_workers-8        	       1	 255461791 ns/op
+BenchmarkFilter/16_workers-8        	       1	 273367250 ns/op
+BenchmarkFilter/16_workers-8        	       1	 245101917 ns/op
+BenchmarkFilter/16_workers-8        	       1	 244729167 ns/op
+BenchmarkFilter/16_workers-8        	       1	 245193584 ns/op
+ok  	uk.ac.bris.cs/concurrency1/filter	13.609s

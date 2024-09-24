@@ -60,6 +60,11 @@ func medianFilter(startY, endY, startX, endX int, data func(y, x int) uint8) [][
 	return filteredMatrix
 }
 
+func worker(startY, endY, startX, endX int, data func(y, x int) uint8, out chan<- [][]uint8) {
+	filteredSlice := medianFilter(startY, endY, startX, endX, data)
+	out <- filteredSlice
+}
+
 // getPixelData transfers an image.Image to a standard 2D slice.
 func getPixelData(img image.Image) [][]uint8 {
 	bounds := img.Bounds()
@@ -112,13 +117,36 @@ func filter(filepathIn, filepathOut string, threads int) {
 	height := bounds.Dy()
 	width := bounds.Dx()
 
+	workerChannels := make([]chan [][]uint8, threads)
+	for i := 0; i < threads; i++ {
+		workerChannels[i] = make(chan [][]uint8)
+	}
+
 	immutableData := makeImmutableMatrix(getPixelData(img))
 	var newPixelData [][]uint8
-	
+
 	if threads == 1 {
 		newPixelData = medianFilter(0, height, 0, width, immutableData)
 	} else {
-		panic("TODO Implement me")
+		//4 goroutines
+		/**go worker(0, 128, 0, 512, immutableData, workerChannels[0])
+		go worker(128, 256, 0, 512, immutableData, workerChannels[1])
+		go worker(256, 384, 0, 512, immutableData, workerChannels[2])
+		go worker(384, 512, 0, 512, immutableData, workerChannels[3])**/
+
+		//n goroutines
+		for n := 0; n < threads; n++ {
+			//individual cut size
+			cutSize := height / threads
+			//calculate the starting and ending Y coordinates
+			startY := n * cutSize
+			endY := (n + 1) * cutSize
+			go worker(startY, endY, 0, width, immutableData, workerChannels[n])
+
+			//gathering the data back
+			part := <-workerChannels[n]
+			newPixelData = append(newPixelData, part...)
+		}
 	}
 
 	imout := image.NewGray(image.Rect(0, 0, width, height))
